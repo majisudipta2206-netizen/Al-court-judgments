@@ -103,3 +103,58 @@
 
 </body>
   </html>
+<section id="result-section" style="display: none; background: #f9f9f9; margin-top: 20px; padding: 25px; border-radius: 15px; border-left: 10px solid #764ba2;">
+    <h2 style="color: #333; margin-bottom: 15px;">Generated Judgment Draft</h2>
+    <div id="judgment-output" style="white-space: pre-wrap; font-family: 'Times New Roman', serif; line-height: 1.8; color: #222;">
+        </div>
+    <button onclick="window.print()" class="btn" style="margin-top: 20px; background: #444;">Print Judgment</button>
+</section>
+
+<script>
+    document.querySelector('.btn').addEventListener('click', function() {
+        // 1. Get input values
+        const caseTitle = document.querySelector('input[type="text"]').value;
+        const caseFacts = document.querySelector('textarea').value;
+
+        if (!caseTitle || !caseFacts) {
+            alert("Please fill in both the Case Title and Facts.");
+            return;
+        }
+
+        // 2. Simple logic to simulate "AI" generation
+        // In a real app, you would send this data to an API (like Gemini or OpenAI)
+        const date = new Date().toLocaleDateString();
+        
+        const generatedDraft = `
+IN THE HIGH COURT OF JUSTICE
+Date: ${date}
+Case Reference: ${caseTitle.toUpperCase()}
+
+BETWEEN: 
+The Parties as named in the title.
+
+JUDGMENT:
+
+1. THE FACTS: 
+The court has reviewed the evidence provided: "${caseFacts}".
+
+2. LEGAL ANALYSIS:
+Having considered the statutory provisions and relevant precedents, the court finds that the burden of proof has been addressed based on the testimony and evidence presented.
+
+3. DECISION:
+Upon deliberation, the Court hereby finds in favor of the prevailing party. It is ordered that the relief sought be granted in accordance with the findings of fact established in this proceeding.
+
+IT IS SO ORDERED.
+        `;
+
+        // 3. Display the result
+        const resultSection = document.getElementById('result-section');
+        const outputDiv = document.getElementById('judgment-output');
+        
+        outputDiv.innerText = generatedDraft;
+        resultSection.style.display = 'block';
+
+        // Scroll to the result
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
